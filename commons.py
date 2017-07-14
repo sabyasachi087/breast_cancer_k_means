@@ -12,9 +12,10 @@ def init():
     df = df.fillna(0)
     # print(df.columns[[11,12]])
     df.drop(df.columns[[11, 12]], axis=1, inplace=True)
+    df = df.apply(pd.to_numeric, errors='coerce')
     global BCANCER_WISCONSIN_DATASET
     BCANCER_WISCONSIN_DATASET = df
-    print('Commons Initialized')
+    print('Commons Initialized  \n')
     
     
 init()
