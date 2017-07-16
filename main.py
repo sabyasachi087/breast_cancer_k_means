@@ -10,7 +10,9 @@ import dataplots as dp
 
 df = comm.BCANCER_WISCONSIN_DATASET
 srvc.curate(df)
-dp.plotHisto(df)
+dp.plotHisto(df,comm.DATA_COLUMNS)
+stats = comm.statistics(df)
+print(stats)
 
 
 

@@ -15,3 +15,5 @@ def curate(df, fill="mean"):
         df.fillna(df.median(), inplace=True)
     elif fill == "mode":
         df.fillna(df.mode(), inplace=True)
+
+
