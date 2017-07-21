@@ -23,12 +23,15 @@ def meanAndSd(s):
     return s.describe()["mean"], s.describe()["std"]
 
 def statistics(df):    
-    index=['Mean','Median','StdDev']
-    stats = pd.DataFrame(np.random.randn(3, 9),columns=DATA_COLUMNS,index=index);
+    index = ['Mean', 'Median', 'StdDev']
+    stats = pd.DataFrame(np.random.randn(3, 9), columns=DATA_COLUMNS, index=index);
     for column in DATA_COLUMNS:
         s = df[column]
-        stats[column]['Mean'],stats[column]['StdDev'] = meanAndSd(s)
-        stats[column]['Var'] = stats[column].median()
+        stats[column]['Mean'], stats[column]['StdDev'] = meanAndSd(s)
+        stats[column]['Median'] = stats[column].median()
     return stats
+ 
+def getNumpyArray():
+     return BCANCER_WISCONSIN_DATASET.as_matrix(DATA_COLUMNS)
    
 init()
