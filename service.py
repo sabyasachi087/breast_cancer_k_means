@@ -109,14 +109,17 @@ def kmeans(ds, loop_count=1500):
     malign, benign andclassMap in respective sequence
     """
     s1, s2 = getRandomVectors(ds)    
+    # Assign the malign cells having higher mean
+    if s1.mean() < s2.mean():
+        tmp = s2;s2 = s1;s1 = tmp
     classMap = dict()
     for i in range(0, loop_count):
         classMap = classify(ds, s1, s2)
         s1 = classMap['MND1']
         s2 = classMap['MND2']
-    # Assign the malign cells having higher mean
-    if s1.mean() < s2.mean():
-        tmp = s2;s2 = s1;s1 = tmp
+        # Assign the malign cells having higher mean
+        if s1.mean() < s2.mean():
+            tmp = s2;s2 = s1;s1 = tmp
     return s1, s2, classMap
 
 def generateReport(df, classMap, limit=20):
@@ -134,10 +137,11 @@ def errorRate(report):
     for malign nd benign cells respectively
     """
     benign = 2 ; malign = 4
-    m_df = report[report.Predicted_Class == malign]
-    b_df = report[report.Predicted_Class == benign]
+    m_df = report[report.Class == malign]
+    b_df = report[report.Class == benign]
     err_malign_count = (m_df[(m_df.Predicted_Class - m_df.Class) != 0].count()).Class
     err_benign_count = (b_df[(b_df.Predicted_Class - b_df.Class) != 0].count()).Class
+    print(err_malign_count, err_benign_count)
     err_M = err_malign_count / m_df.size
     err_B = err_benign_count / b_df.size
     return err_M, err_B

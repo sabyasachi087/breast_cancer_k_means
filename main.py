@@ -25,12 +25,13 @@ def phase2():
 
 def phase3():
     print('Begin phase3 \n')   
-    m4, m2, classMap = srvc.kmeans(comm.getNumpyArray(), 500)    
+    m4, m2, classMap = srvc.kmeans(comm.getNumpyArray(), 250)    
     print('\nM2 : %s' % (m2))
     print('M4 : %s\n' % (m4))  
     report = srvc.generateReport(df, classMap, limit=699)
     err_M, err_B = srvc.errorRate(report)
-    print('Error rate : %s' % (err_M + err_B))
+    print('Error rate Malign : %s, and Benign : %s' % (err_M , err_B))
+    print('Ner Error rate : %s' % (err_M + err_B))
     
 if __name__ == '__main__':
     phase3()
