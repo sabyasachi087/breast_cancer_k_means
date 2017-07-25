@@ -18,18 +18,19 @@ def phase1():
 
 def phase2():
     print('Begin phase2 \n')    
-    ds = comm.getNumpyArray()
-    s1, s2 = srvc.getRandomVectors(ds)   
-    classMap = dict()
-    for i in range(0, 1500):
-        classMap = srvc.classify(ds, s1, s2)
-        s1 = classMap['MND1']
-        s2 = classMap['MND2']
-    print()
-    print('M2 : %s'%(s1))
-    print('M4 : %s'%(s2))
-    print()
+    m4, m2, classMap = srvc.kmeans(comm.getNumpyArray(), 1500)
+    print('\nM2 : %s' % (m2))
+    print('M4 : %s\n' % (m4))  
     print(srvc.generateReport(df, classMap))
 
+def phase3():
+    print('Begin phase3 \n')   
+    m4, m2, classMap = srvc.kmeans(comm.getNumpyArray(), 500)    
+    print('\nM2 : %s' % (m2))
+    print('M4 : %s\n' % (m4))  
+    report = srvc.generateReport(df, classMap, limit=699)
+    err_M, err_B = srvc.errorRate(report)
+    print('Error rate : %s' % (err_M + err_B))
+    
 if __name__ == '__main__':
-    phase2()
+    phase3()
